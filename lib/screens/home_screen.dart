@@ -1,9 +1,32 @@
 import 'package:birendra_portfolio/core/constants/app_colors.dart';
-import 'package:birendra_portfolio/widgets/theme_mode_demo.dart';
+import 'package:birendra_portfolio/core/constants/portfolio_section.dart';
+import 'package:birendra_portfolio/widgets/mobile_menu.dart';
+import 'package:birendra_portfolio/widgets/navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final Map<PortfolioSection, GlobalKey> _sectionKeys = {
+    for (final section in PortfolioSection.values) section: GlobalKey(),
+  };
+
+  void _scrollToSection(PortfolioSection section) {
+    final sectionContext = _sectionKeys[section]?.currentContext;
+    if (sectionContext == null) return;
+
+    Scrollable.ensureVisible(
+      sectionContext,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,92 +34,47 @@ class HomeScreen extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 640),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hello, I\'m',
-                  style: textTheme.titleLarge?.copyWith(
-                    color: AppColors.accent,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text.rich(
-                  TextSpan(
-                    text: 'Birendra ',
-                    children: [
-                      TextSpan(
-                        text: 'Kalauni',
-                        style: TextStyle(color: AppColors.accent),
-                      ),
-                    ],
-                  ),
-                  style: textTheme.displayLarge,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Flutter Developer',
-                  style: textTheme.headlineMedium?.copyWith(
-                    color: AppColors.accent,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'BSc CSIT student and aspiring Flutter developer who enjoys '
-                  'building practical applications.',
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    FilledButton(
-                      onPressed: () {},
-                      child: const Text('View Projects'),
-                    ),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text('Contact Me'),
-                    ),
-                  ], 
-                ),
-                const SizedBox(height: 32,),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Sample card',
-                      style: textTheme.titleLarge,),
-                      const SizedBox(height: 4,),
-                      Text('Cards use the card color, a subtle border, and rounded corners.',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),)
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24,),
-                const ThemeModeDemo(),
-              ],
-            ),
-          ),
+      appBar: Navbar(onItemSelected: _scrollToSection),
+      endDrawer: MobileMenu(onItemSelected: _scrollToSection),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            for (final section in PortfolioSection.values)
+              _PlaceholderSection(key: _sectionKeys[section], section: section),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class _PlaceholderSection extends StatelessWidget {
+  const _PlaceholderSection({super.key, required this.section});
+
+  final PortfolioSection section;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      constraints: const BoxConstraints(minHeight: 600),
+      color: section.index.isEven ? AppColors.background : AppColors.surface,
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${section.label} section',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          if (section == PortfolioSection.projects) ...[
+            const SizedBox(height: 16),
+            FilledButton(
+              onPressed: () => context.go('/projects/ride-together'),
+              child: const Text('Open sample project page'),
+            ),
+          ],
+        ],
       ),
     );
   }
