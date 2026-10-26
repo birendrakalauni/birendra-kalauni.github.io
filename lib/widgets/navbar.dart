@@ -1,5 +1,4 @@
 import 'package:birendra_portfolio/core/constants/app_colors.dart';
-import 'package:birendra_portfolio/core/constants/breakpoints.dart';
 import 'package:birendra_portfolio/core/constants/portfolio_section.dart';
 import 'package:birendra_portfolio/widgets/responsive_container.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,9 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   final ValueChanged<PortfolioSection> onItemSelected;
 
   static const double height = 72;
+  static const double fullNavigationMinWidth = 1200;
 
+  @override
   Size get preferredSize => const Size.fromHeight(height);
 
   @override
@@ -19,35 +20,58 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isDesktop = Breakpoints.isDesktop(constraints.maxWidth);
+        final showFullNavigation =
+            constraints.maxWidth >= fullNavigationMinWidth;
 
         return Container(
           height: height,
           decoration: const BoxDecoration(
             color: AppColors.background,
-            border: Border(bottom: BorderSide(color: AppColors.border)),
+            border: Border(
+              bottom: BorderSide(color: AppColors.border),
+            ),
           ),
           child: ResponsiveContainer(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _Logo(onTap: () => onItemSelected(PortfolioSection.home)),
-                const Spacer(),
-                if (isDesktop)
-                  for (final section in PortfolioSection.values)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: TextButton(
-                        onPressed: () => onItemSelected(section),
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.textSecondary,
-                          textStyle: textTheme.labelLarge,
+                Flexible(
+                  child: _Logo(
+                    onTap: () => onItemSelected(PortfolioSection.home),
+                  ),
+                ),
+                
+                if (showFullNavigation)
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (final section in PortfolioSection.values)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4),
+                          child: TextButton(
+                            onPressed: () => onItemSelected(section),
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColors.textSecondary,
+                              textStyle: textTheme.labelLarge,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                            ),
+                            child: Text(section.label),
+                          ),
                         ),
-                        child: Text(section.label),
-                      ),
-                    )
-                    else 
-                    IconButton( tooltip: 'Open menu',
-                      onPressed: () => Scaffold.of(context).openEndDrawer(), icon: const Icon(Icons.menu))
+                    ],
+                  )
+                else
+                  Builder(
+                    builder: (scaffoldContext) => IconButton(
+                      tooltip: 'Open menu',
+                      onPressed: () {
+                        Scaffold.of(scaffoldContext).openEndDrawer();
+                      },
+                      icon: const Icon(Icons.menu),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -68,7 +92,10 @@ class _Logo extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 4,
+          vertical: 8,
+        ),
         child: Text.rich(
           const TextSpan(
             text: 'Birendra ',

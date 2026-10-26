@@ -1,5 +1,6 @@
 import 'package:birendra_portfolio/core/constants/app_colors.dart';
 import 'package:birendra_portfolio/core/constants/portfolio_section.dart';
+import 'package:birendra_portfolio/sections/hero_section.dart';
 import 'package:birendra_portfolio/widgets/mobile_menu.dart';
 import 'package:birendra_portfolio/widgets/navbar.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +29,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildSection(PortfolioSection section) {
+    switch (section) {
+      case PortfolioSection.home:
+        return HeroSection(
+          key: _sectionKeys[section],
+          onViewProjects: () => _scrollToSection(PortfolioSection.projects),
+          onContactMe: () => _scrollToSection(PortfolioSection.contact),
+        );
+
+      default:
+        return _PlaceholderSection(
+          key: _sectionKeys[section],
+          section: section,
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return Scaffold(
       appBar: Navbar(onItemSelected: _scrollToSection),
       endDrawer: MobileMenu(onItemSelected: _scrollToSection),
@@ -40,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             for (final section in PortfolioSection.values)
-              _PlaceholderSection(key: _sectionKeys[section], section: section),
+              _buildSection(section),
           ],
         ),
       ),

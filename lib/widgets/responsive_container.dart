@@ -14,14 +14,15 @@ class ResponsiveContainer extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final horizontalPadding = Breakpoints.isMobile(width)
-            ? 20.0
+            ? 16.0
             : Breakpoints.isTablet(width)
-            ? 32.0
+            ? 24.0
             : 48.0;
 
         return Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: maxContentWidth),
+            constraints: const BoxConstraints(maxWidth: maxContentWidth,
+            minWidth: 0),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
               child: child,
