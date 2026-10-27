@@ -1,6 +1,8 @@
 import 'package:birendra_portfolio/core/constants/app_colors.dart';
 import 'package:birendra_portfolio/core/constants/portfolio_section.dart';
+import 'package:birendra_portfolio/sections/about_section.dart';
 import 'package:birendra_portfolio/sections/hero_section.dart';
+import 'package:birendra_portfolio/sections/skills_section.dart';
 import 'package:birendra_portfolio/widgets/mobile_menu.dart';
 import 'package:birendra_portfolio/widgets/navbar.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
           onViewProjects: () => _scrollToSection(PortfolioSection.projects),
           onContactMe: () => _scrollToSection(PortfolioSection.contact),
         );
+
+      case PortfolioSection.about:
+        return AboutSection(key: _sectionKeys[section]);
+
+      case PortfolioSection.skills:
+        return SkillsSection(key: _sectionKeys[section]);
 
       default:
         return _PlaceholderSection(

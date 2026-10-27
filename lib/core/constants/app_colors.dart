@@ -22,5 +22,6 @@ class AppColors {
   static const Color border = Color(0xFF1E3A52);
   static const Color borderStrong = Color(0xFF334155);
 
-    static const Color tealGlow = Color(0x2614B8A6); // 15% teal, for soft glows
+  static const Color tealGlow = Color(0x1214B8A6); // ~7% teal, soft background glow
+  static const Color tealTint = Color(0x2614B8A6); // ~15% teal, icon tile background    
 }
