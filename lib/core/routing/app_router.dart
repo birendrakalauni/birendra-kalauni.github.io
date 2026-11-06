@@ -1,6 +1,7 @@
+import 'package:birendra_portfolio/data/projects.dart';
 import 'package:birendra_portfolio/screens/home_screen.dart';
+import 'package:birendra_portfolio/screens/not_found_screen.dart';
 import 'package:birendra_portfolio/screens/project_detail_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -15,27 +16,11 @@ final GoRouter appRouter = GoRouter(
       path: '/projects/:slug',
       name: 'project-detail',
       builder: (context, state) {
-        final slug = state.pathParameters['slug']!;
-        return ProjectDetailScreen(slug: slug);
+        final project = projectBySlug(state.pathParameters['slug']!);
+        if (project == null) return const NotFoundScreen();
+        return ProjectDetailScreen(project: project);
       },
     ),
   ],
-  errorBuilder: (context, state) => Scaffold(
-    body: Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Page not found',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          const SizedBox(height: 16),
-          FilledButton(
-            onPressed: () => context.go('/'),
-            child: const Text('Back to home'),
-          ),
-        ],
-      ),
-    ),
-  ),
+  errorBuilder: (context, state) => const NotFoundScreen(),
 );

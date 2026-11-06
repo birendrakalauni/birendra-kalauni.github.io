@@ -2,11 +2,11 @@ import 'package:birendra_portfolio/core/constants/app_colors.dart';
 import 'package:birendra_portfolio/core/constants/portfolio_section.dart';
 import 'package:birendra_portfolio/sections/about_section.dart';
 import 'package:birendra_portfolio/sections/hero_section.dart';
+import 'package:birendra_portfolio/sections/projects_section.dart';
 import 'package:birendra_portfolio/sections/skills_section.dart';
 import 'package:birendra_portfolio/widgets/mobile_menu.dart';
 import 'package:birendra_portfolio/widgets/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
       case PortfolioSection.skills:
         return SkillsSection(key: _sectionKeys[section]);
 
+      case PortfolioSection.projects:
+        return ProjectsSection(key: _sectionKeys[section]);
+
       default:
         return _PlaceholderSection(
           key: _sectionKeys[section],
@@ -83,22 +86,9 @@ class _PlaceholderSection extends StatelessWidget {
       constraints: const BoxConstraints(minHeight: 600),
       color: section.index.isEven ? AppColors.background : AppColors.surface,
       alignment: Alignment.center,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            '${section.label} section',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          if (section == PortfolioSection.projects) ...[
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () => context.go('/projects/ride-together'),
-              child: const Text('Open sample project page'),
-            ),
-          ],
-        ],
-      ),
+      child: 
+      Text('${section.label} section',
+      style: Theme.of(context).textTheme.headlineMedium,)
     );
   }
 }
