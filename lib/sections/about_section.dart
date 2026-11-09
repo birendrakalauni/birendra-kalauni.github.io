@@ -120,7 +120,7 @@ class _EducationCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const IconTile(icon: Icons.school_outlined),
+          const IconTile(icon: Icon(Icons.school_outlined)),
           const SizedBox(width: 16),
           Expanded(
             child: Column(

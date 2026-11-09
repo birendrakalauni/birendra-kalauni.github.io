@@ -3,8 +3,7 @@ import 'package:birendra_portfolio/models/project_model.dart';
 import 'package:flutter/foundation.dart';
 
 class ProjectProvider extends ChangeNotifier {
-  ProjectProvider({List<ProjectModel> projects = allProjects})
-    : _projects = projects;
+  ProjectProvider({this._projects = allProjects});
 
   final List<ProjectModel> _projects;
 

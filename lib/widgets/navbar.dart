@@ -82,7 +82,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _Logo extends StatelessWidget {
-  const _Logo({super.key, required this.onTap});
+  const _Logo({required this.onTap});
 
   final VoidCallback onTap;
 

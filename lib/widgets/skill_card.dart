@@ -15,7 +15,7 @@ class SkillCard extends StatelessWidget {
     return AppCard(
       child: Row(
         children: [
-          IconTile(icon: category.icon),
+          IconTile(icon: Icon(category.icon)),
           const SizedBox(width: 16),
           Expanded(
             child: Column(

@@ -1,3 +1,4 @@
+import 'package:birendra_portfolio/core/constants/app_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -63,8 +64,9 @@ void main() {
     expect(find.text('rideTogether'), findsOneWidget);
   });
 
-  testWidgets('Opening a project shows its detail page; back returns',
-      (tester) async {
+  testWidgets('Opening a project shows its detail page; back returns', (
+    tester,
+  ) async {
     await pumpApp(tester, const Size(1280, 900));
 
     final title = find.text('rideTogether');
@@ -81,8 +83,9 @@ void main() {
     expect(find.text('Featured Projects'), findsOneWidget);
   });
 
-  testWidgets('Mobile menu opens and closes after selecting an item',
-      (tester) async {
+  testWidgets('Mobile menu opens and closes after selecting an item', (
+    tester,
+  ) async {
     await pumpApp(tester, const Size(400, 800));
 
     expect(find.byIcon(Icons.menu), findsOneWidget);
@@ -97,10 +100,34 @@ void main() {
     expect(find.text('Projects'), findsNothing); // menu closed again
   });
 
+  testWidgets('Education, leadership and training are shown', (tester) async {
+    await pumpApp(tester, const Size(1280, 900));
+
+    expect(find.text('Education'), findsOneWidget);
+    expect(find.text('Leadership Experience'), findsOneWidget);
+    expect(find.text('Training'), findsOneWidget);
+    expect(find.text('Technical Lead'), findsOneWidget);
+    expect(find.text('Executive Member'), findsOneWidget);
+    expect(find.text('Flutter Framework Training'), findsOneWidget);
+    expect(find.text('July 2026 – Oct 2026'), findsOneWidget);
+  });
+
+  testWidgets('Contact section and footer show the details', (tester) async {
+    await pumpApp(tester, const Size(1280, 900));
+
+    expect(find.text('Get In Touch'), findsOneWidget);
+    expect(find.text(AppInfo.email), findsWidgets); // About and Contact
+    expect(find.text(AppInfo.phone), findsWidgets);
+    expect(find.text('Send an Email'), findsOneWidget);
+    expect(find.textContaining('All rights reserved'), findsOneWidget);
+    expect(find.byTooltip('Back to top'), findsOneWidget);
+  });
+
   // Rendering the whole page at several widths fails if any layout overflows.
   for (final width in [360.0, 640.0, 768.0, 1024.0, 1200.0, 1440.0]) {
-    testWidgets('Page renders without overflow at ${width.toInt()}px',
-        (tester) async {
+    testWidgets('Page renders without overflow at ${width.toInt()}px', (
+      tester,
+    ) async {
       await pumpApp(tester, Size(width, 900));
 
       expect(find.text('Flutter Developer'), findsOneWidget);

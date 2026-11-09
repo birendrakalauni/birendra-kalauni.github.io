@@ -8,7 +8,8 @@ Future<bool> openExternalUrl(String url) async {
       uri != null &&
       (((uri.isScheme('https') || uri.isScheme('http')) &&
               uri.host.isNotEmpty) ||
-          (uri.isScheme('mailto') && uri.path.isNotEmpty));
+          (uri.isScheme('mailto') && uri.path.isNotEmpty) ||
+          (uri.isScheme('tel') && uri.path.isNotEmpty));
   if (!isAllowed) return false;
 
   try {

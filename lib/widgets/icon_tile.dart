@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class IconTile extends StatelessWidget {
   const IconTile({super.key, required this.icon, this.size = 48});
 
-  final IconData icon;
+  final Widget icon;
   final double size;
 
   @override
@@ -17,7 +17,7 @@ class IconTile extends StatelessWidget {
         color: AppColors.tealTint,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Icon(icon, color: AppColors.accent, size: size * 0.5),
+      child: IconTheme(data: IconThemeData(color: AppColors.accent, size: size * 0.5), child: icon),
     );
   }
 }
