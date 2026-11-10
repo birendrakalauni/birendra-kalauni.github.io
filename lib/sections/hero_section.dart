@@ -35,11 +35,6 @@ class HeroSection extends StatelessWidget {
         return Container(
           width: double.infinity,
           decoration: const BoxDecoration(
-            gradient: RadialGradient(
-              center: Alignment(0.75, -0.2),
-              radius: 0.9,
-              colors: [AppColors.tealGlow, AppColors.background],
-            ),
             border: Border(bottom: BorderSide(color: AppColors.border)),
           ),
           child: ResponsiveContainer(

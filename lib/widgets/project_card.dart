@@ -1,6 +1,7 @@
 import 'package:birendra_portfolio/core/utils/url_helper.dart';
 import 'package:birendra_portfolio/models/project_model.dart';
 import 'package:birendra_portfolio/widgets/app_card.dart';
+import 'package:birendra_portfolio/widgets/hover_builder.dart';
 import 'package:birendra_portfolio/widgets/project_image.dart';
 import 'package:birendra_portfolio/widgets/status_chip.dart';
 import 'package:birendra_portfolio/widgets/tech_tag.dart';
@@ -24,40 +25,50 @@ class ProjectCard extends StatelessWidget {
     );
     final semanticLabel = '${project.title} screenshot';
 
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => _open(context),
-        child: AppCard(
-          child: compact
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ProjectImage(
-                      height: 180,
-                      width: double.infinity,
-                      imageAsset: project.imageAsset,
-                      semanticLabel: semanticLabel,
-                    ),
-                    const SizedBox(height: 16),
-                    Expanded(child: details),
-                  ],
-                )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ProjectImage(
-                      height: 176,
-                      width: 96,
-                      imageAsset: project.imageAsset,
-                      semanticLabel: semanticLabel,
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(child: details),
-                  ],
-                ),
-        ),
-      ),
+    return HoverBuilder(
+      builder: (context, hovering) {
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => _open(context),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              transform: Matrix4.translationValues(0, hovering ? -4 : 0, 0),
+              child: AppCard(
+                highlighted: hovering,
+                child: compact
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ProjectImage(
+                            height: 180,
+                            width: double.infinity,
+                            imageAsset: project.imageAsset,
+                            semanticLabel: semanticLabel,
+                          ),
+                          const SizedBox(height: 16),
+                          Expanded(child: details),
+                        ],
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ProjectImage(
+                            height: 176,
+                            width: 96,
+                            imageAsset: project.imageAsset,
+                            semanticLabel: semanticLabel,
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(child: details),
+                        ],
+                      ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

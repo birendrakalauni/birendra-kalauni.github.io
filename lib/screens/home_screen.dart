@@ -7,6 +7,7 @@ import 'package:birendra_portfolio/sections/projects_section.dart';
 import 'package:birendra_portfolio/sections/skills_section.dart';
 import 'package:birendra_portfolio/widgets/mobile_menu.dart';
 import 'package:birendra_portfolio/widgets/navbar.dart';
+import 'package:birendra_portfolio/widgets/reveal.dart';
 import 'package:birendra_portfolio/widgets/site_footer.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _scrollToSection(PortfolioSection section) {
     final sectionContext = _sectionKeys[section]?.currentContext;
-    if (sectionContext == null) return; 
+    if (sectionContext == null) return;
 
     Scrollable.ensureVisible(
       sectionContext,
@@ -34,29 +35,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSection(PortfolioSection section) {
-    final key = _sectionKeys[section];
     switch (section) {
       case PortfolioSection.home:
         return HeroSection(
-          key: key,
           onViewProjects: () => _scrollToSection(PortfolioSection.projects),
           onContactMe: () => _scrollToSection(PortfolioSection.contact),
         );
 
       case PortfolioSection.about:
-        return AboutSection(key: key);
+        return const AboutSection();
 
       case PortfolioSection.skills:
-        return SkillsSection(key: key);
+        return const SkillsSection();
 
       case PortfolioSection.projects:
-        return ProjectsSection(key: key);
+        return const ProjectsSection();
 
       case PortfolioSection.experience:
-        return ExperienceSection(key: key);
+        return const ExperienceSection();
 
       case PortfolioSection.contact:
-        return ContactSection(key: key);
+        return const ContactSection();
     }
   }
 
@@ -69,13 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             for (final section in PortfolioSection.values)
-              _buildSection(section),
+              Reveal(key: _sectionKeys[section], child: _buildSection(section)),
 
-              SiteFooter(onBackToTop: () => _scrollToSection(PortfolioSection.home))
+            SiteFooter(
+              onBackToTop: () => _scrollToSection(PortfolioSection.home),
+            ),
           ],
         ),
       ),
     );
   }
 }
-

@@ -1,4 +1,5 @@
 import 'package:birendra_portfolio/core/constants/app_info.dart';
+import 'package:birendra_portfolio/widgets/reveal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -123,8 +124,52 @@ void main() {
     expect(find.byTooltip('Back to top'), findsOneWidget);
   });
 
+  testWidgets('Page survives 1.5x text scaling without overflow',
+      (tester) async {
+    setViewSize(tester, const Size(390, 900));
+    tester.platformDispatcher.textScaleFactorTestValue = 1.5;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+    await tester.pumpWidget(const PortfolioApp());
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Reveal fades content in once it scrolls into view',
+      (tester) async {
+    setViewSize(tester, const Size(800, 600));
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 1200),
+                Reveal(child: Text('Revealed')),
+                SizedBox(height: 600),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final opacity = find.descendant(
+      of: find.byType(Reveal),
+      matching: find.byType(AnimatedOpacity),
+    );
+    expect(tester.widget<AnimatedOpacity>(opacity).opacity, 0);
+
+    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -900));
+    await tester.pumpAndSettle();
+
+    expect(tester.widget<AnimatedOpacity>(opacity).opacity, 1);
+  }); 
+  
   // Rendering the whole page at several widths fails if any layout overflows.
-  for (final width in [360.0, 640.0, 768.0, 1024.0, 1200.0, 1440.0]) {
+  for (final width in [320.0, 360.0, 640.0, 768.0, 1024.0, 1200.0, 1440.0]) {
     testWidgets('Page renders without overflow at ${width.toInt()}px', (
       tester,
     ) async {

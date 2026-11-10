@@ -18,7 +18,21 @@ class HeroVisual extends StatelessWidget {
               height: size,
               child: Stack(
                 alignment: Alignment.center,
+                clipBehavior: Clip.none,
                 children: [
+                  Positioned(
+                    left: -size * 0.2,
+                    top: -size * 0.2,
+                    right: -size * 0.2,
+                    bottom: -size * 0.2,
+                    child: const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: [AppColors.tealGlow, AppColors.tealClear],
+                        ),
+                      ),
+                    ),
+                  ),
                   Container(
                     width: size * 0.86,
                     height: size * 0.86,
