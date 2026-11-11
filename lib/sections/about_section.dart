@@ -61,7 +61,7 @@ class _AboutText extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'My interests include mobile application development, responsive '
-            'Ui design, and Firebase integration.',
+            'UI design, and Firebase integration.',
             style: bodyStyle,
           ),
           const SizedBox(height: 24),

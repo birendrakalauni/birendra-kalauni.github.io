@@ -115,3 +115,6 @@ unlinked_spec.ds
 firebase-debug.log
 google-services.json
 GoogleService-Info.plist
+
+.firebase/
+firebase-debug.log
