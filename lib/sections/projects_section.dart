@@ -48,7 +48,10 @@ class ProjectsSection extends StatelessWidget {
           const SizedBox(height: 24),
           const ProjectFilterChips(),
           const SizedBox(height: 24),
-          _ProjectGrid(columns: isWide ? 3 : (isMobile ? 1 : 2), compact: !isWide)
+          _ProjectGrid(
+            columns: isWide ? 3 : (isMobile ? 1 : 2),
+            compact: !isWide,
+          ),
         ],
       ),
     );
@@ -75,7 +78,11 @@ class _ProjectGrid extends StatelessWidget {
       columns: columns,
       children: [
         for (final project in projects)
-        ProjectCard(key: ValueKey(project.slug), project: project, compact: compact)
+          ProjectCard(
+            key: ValueKey(project.slug),
+            project: project,
+            compact: compact,
+          ),
       ],
     );
   }

@@ -74,8 +74,7 @@ class _AboutText extends StatelessWidget {
                 text: AppInfo.location,
               ),
               _InfoItem(icon: Icons.mail_outline, text: AppInfo.email),
-              _InfoItem(icon: Icons.phone_outlined, text: AppInfo.phone)
-              
+              _InfoItem(icon: Icons.phone_outlined, text: AppInfo.phone),
             ],
           ),
         ],

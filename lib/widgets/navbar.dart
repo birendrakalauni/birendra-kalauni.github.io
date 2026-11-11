@@ -27,9 +27,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
           height: height,
           decoration: const BoxDecoration(
             color: AppColors.background,
-            border: Border(
-              bottom: BorderSide(color: AppColors.border),
-            ),
+            border: Border(bottom: BorderSide(color: AppColors.border)),
           ),
           child: ResponsiveContainer(
             child: Row(
@@ -40,7 +38,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                     onTap: () => onItemSelected(PortfolioSection.home),
                   ),
                 ),
-                
+
                 if (showFullNavigation)
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -92,10 +90,7 @@ class _Logo extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 4,
-          vertical: 8,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
         child: Text.rich(
           const TextSpan(
             text: 'Birendra ',

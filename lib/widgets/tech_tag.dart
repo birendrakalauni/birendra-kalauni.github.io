@@ -28,8 +28,7 @@ class TechTag extends StatelessWidget {
 }
 
 class TechTagList extends StatelessWidget {
-  const TechTagList({super.key,
-  required this.tags});
+  const TechTagList({super.key, required this.tags});
 
   final List<String> tags;
 
@@ -38,7 +37,7 @@ class TechTagList extends StatelessWidget {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children: [ for (final tag in tags) TechTag(label: tag)],
+      children: [for (final tag in tags) TechTag(label: tag)],
     );
   }
 }

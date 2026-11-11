@@ -47,58 +47,53 @@ class _TimelineRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            width: 16,
-            child: Column(
-              children: [
-                const SizedBox(height: 6),
-
-                Container(
-                  width: 10,
-                  height: 10,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.accent,
-                  ),
-                ),
-                if (!isLast)
-                  Expanded(child: Container(width: 2, color: AppColors.border)),
-              ],
-            ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: isLast ? 0 : 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    entry.title,
-                    style: textTheme.titleLarge?.copyWith(fontSize: 16),
-                  ),
-                  const SizedBox(height: 4),
-
-                  Text(entry.subtitle, style: textTheme.bodyMedium),
-
-                  const SizedBox(height: 4),
-
-                  Text(
-                    entry.period,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: AppColors.accent,
-                    ),
-                  ),
-                ],
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 4),
+          padding: EdgeInsets.only(left: 24, bottom: isLast ? 0 : 24),
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(
+                color: isLast ? Colors.transparent : AppColors.border,
+                width: 2,
               ),
             ),
           ),
-        ],
-      ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                entry.title,
+                style: textTheme.titleLarge?.copyWith(fontSize: 16),
+              ),
+              const SizedBox(height: 4),
+              Text(entry.subtitle, style: textTheme.bodyMedium),
+              const SizedBox(height: 4),
+              Text(
+                entry.period,
+                style: textTheme.bodyMedium?.copyWith(color: AppColors.accent),
+              ),
+            ],
+          ),
+        ),
+        // The dot, placed on top of the line.
+        Positioned(
+          left: 0,
+          top: 6,
+          child: Container(
+            width: 10,
+            height: 10,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.accent,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
+

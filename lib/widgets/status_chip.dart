@@ -3,8 +3,7 @@ import 'package:birendra_portfolio/models/project_model.dart';
 import 'package:flutter/material.dart';
 
 class StatusChip extends StatelessWidget {
-  const StatusChip({super.key,
-  required this.status});
+  const StatusChip({super.key, required this.status});
 
   final ProjectStatus status;
 
@@ -16,11 +15,11 @@ class StatusChip extends StatelessWidget {
         color: AppColors.tealTint,
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(status.label,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-        fontSize: 12,
-        color: AppColors.accent,
-      ),),
+      child: Text(
+        status.label,
+        style: Theme.of(context).textTheme.labelLarge
+            ?.copyWith(fontSize: 12, color: AppColors.accent),
+      ),
     );
   }
 }

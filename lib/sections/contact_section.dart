@@ -60,7 +60,7 @@ class _ContactDetails extends StatelessWidget {
             value: AppInfo.email,
             url: AppLinks.email,
           ),
-          
+
           const ContactItem(
             icon: Icon(Icons.phone_outlined),
             label: 'Phone',
@@ -79,7 +79,7 @@ class _ContactDetails extends StatelessWidget {
             value: 'linkedin.com/in/birendra-kalauni-297139261/',
             url: AppLinks.linkedin,
           ),
-           ContactItem(
+          ContactItem(
             icon: FaIcon(FontAwesomeIcons.github),
             label: 'GitHub',
             value: 'github.com/birendrakalauni',

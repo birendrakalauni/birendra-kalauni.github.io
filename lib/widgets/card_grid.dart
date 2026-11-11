@@ -41,6 +41,6 @@ class CardGrid extends StatelessWidget {
         rows.add(SizedBox(height: spacing));
       }
     }
-    return Column(children: rows,);
+    return Column(children: rows);
   }
 }

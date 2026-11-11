@@ -18,8 +18,12 @@ class SkillCard extends StatelessWidget {
         return AppCard(
           highlighted: hovering,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconTile(icon: Icon(category.icon)),
+              Align(
+                alignment: Alignment.topCenter,
+                child: IconTile(icon: Icon(category.icon)),
+              ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(

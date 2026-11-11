@@ -23,7 +23,7 @@ const List<ProjectModel> allProjects = [
     ],
     technologies: ['Flutter', 'Firebase', 'GetX', 'GoRouter', 'OpenStreetMap'],
     status: ProjectStatus.ongoing,
-    imageAsset: '',
+    imageAsset: 'assets/images/projects/rideTogether.png',
     githubUrl: 'https://github.com/birendrakalauni/ride-together',
   ),
   ProjectModel(

@@ -1,4 +1,5 @@
 import 'package:birendra_portfolio/core/constants/app_info.dart';
+import 'package:birendra_portfolio/core/routing/app_router.dart';
 import 'package:birendra_portfolio/widgets/reveal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -124,8 +125,9 @@ void main() {
     expect(find.byTooltip('Back to top'), findsOneWidget);
   });
 
-  testWidgets('Page survives 1.5x text scaling without overflow',
-      (tester) async {
+  testWidgets('Page survives 1.5x text scaling without overflow', (
+    tester,
+  ) async {
     setViewSize(tester, const Size(390, 900));
     tester.platformDispatcher.textScaleFactorTestValue = 1.5;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
@@ -136,8 +138,9 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('Reveal fades content in once it scrolls into view',
-      (tester) async {
+  testWidgets('Reveal fades content in once it scrolls into view', (
+    tester,
+  ) async {
     setViewSize(tester, const Size(800, 600));
     await tester.pumpWidget(
       const MaterialApp(
@@ -162,12 +165,54 @@ void main() {
     );
     expect(tester.widget<AnimatedOpacity>(opacity).opacity, 0);
 
-    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -900));
+    await tester.drag(
+      find.byType(SingleChildScrollView),
+      const Offset(0, -900),
+    );
     await tester.pumpAndSettle();
 
     expect(tester.widget<AnimatedOpacity>(opacity).opacity, 1);
-  }); 
-  
+  });
+
+  testWidgets('A project URL opened directly shows its detail page', (
+    tester,
+  ) async {
+    addTearDown(() => appRouter.go('/')); // the router is shared by all tests
+    await pumpApp(tester, const Size(1280, 900));
+
+    appRouter.go('/projects/flashcard-quiz');
+    await tester.pumpAndSettle();
+
+    expect(find.text('Offline Flashcard App'), findsOneWidget);
+  });
+
+  testWidgets('Back from a directly opened project goes to the home page', (
+    tester,
+  ) async {
+    addTearDown(() => appRouter.go('/'));
+    await pumpApp(tester, const Size(1280, 900));
+
+    appRouter.go('/projects/ride-together');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Featured Projects'), findsOneWidget);
+  });
+
+  testWidgets('Unknown URLs show the not-found page', (tester) async {
+    addTearDown(() => appRouter.go('/'));
+    await pumpApp(tester, const Size(1280, 900));
+
+    appRouter.go('/projects/does-not-exist');
+    await tester.pumpAndSettle();
+    expect(find.text('Page not found'), findsOneWidget);
+
+    appRouter.go('/nonsense');
+    await tester.pumpAndSettle();
+    expect(find.text('Page not found'), findsOneWidget);
+  });
+
   // Rendering the whole page at several widths fails if any layout overflows.
   for (final width in [320.0, 360.0, 640.0, 768.0, 1024.0, 1200.0, 1440.0]) {
     testWidgets('Page renders without overflow at ${width.toInt()}px', (

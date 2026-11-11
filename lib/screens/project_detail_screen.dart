@@ -184,8 +184,8 @@ class _ProjectInfo extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text('Live demo'),
-                      SizedBox(width: 8,),
-                      Icon(Icons.open_in_new, size: 16,)
+                      SizedBox(width: 8),
+                      Icon(Icons.open_in_new, size: 16),
                     ],
                   ),
                 ),

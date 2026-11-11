@@ -15,15 +15,15 @@ class SectionHeading extends StatelessWidget {
           header: true,
           child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(height: 8),
         Container(
           width: 48,
           height: 3,
           decoration: BoxDecoration(
             color: AppColors.primary,
-            borderRadius: BorderRadius.circular(2)
+            borderRadius: BorderRadius.circular(2),
           ),
-        )
+        ),
       ],
     );
   }

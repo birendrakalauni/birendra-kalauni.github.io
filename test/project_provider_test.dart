@@ -18,10 +18,9 @@ void main() {
       provider.addListener(() => notifications++);
 
       provider.selectFilter('SQLite');
-      expect(
-        provider.filteredProjects.map((p) => p.slug).toList(),
-        ['flashcard-quiz'],
-      );
+      expect(provider.filteredProjects.map((p) => p.slug).toList(), [
+        'flashcard-quiz',
+      ]);
       expect(notifications, 1);
 
       provider.selectFilter('SQLite'); // unchanged: no notification

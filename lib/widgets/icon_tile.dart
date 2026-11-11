@@ -17,7 +17,10 @@ class IconTile extends StatelessWidget {
         color: AppColors.tealTint,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: IconTheme(data: IconThemeData(color: AppColors.accent, size: size * 0.5), child: icon),
+      child: IconTheme(
+        data: IconThemeData(color: AppColors.accent, size: size * 0.5),
+        child: icon,
+      ),
     );
   }
 }

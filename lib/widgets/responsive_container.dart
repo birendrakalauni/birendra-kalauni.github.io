@@ -21,8 +21,10 @@ class ResponsiveContainer extends StatelessWidget {
 
         return Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: maxContentWidth,
-            minWidth: 0),
+            constraints: const BoxConstraints(
+              maxWidth: maxContentWidth,
+              minWidth: 0,
+            ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
               child: child,

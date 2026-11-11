@@ -63,11 +63,6 @@ class HeroVisual extends StatelessWidget {
                       color: AppColors.card,
                       border: Border.all(color: AppColors.primary, width: 2),
                     ),
-                    // child: Icon(
-                    //   Icons.person_outline,
-                    //   size: size * 0.28,
-                    //   color: AppColors.textSecondary,
-                    // ),
                     child: ClipOval(
                       child: SizedBox.expand(
                         child: Image.asset(
