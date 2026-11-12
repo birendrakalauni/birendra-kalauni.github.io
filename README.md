@@ -8,6 +8,7 @@ Personal developer portfolio built with Flutter and Dart, showcasing my projects
 
 I am a final-year BSc CSIT student at Tribhuvan University, interested in mobile application development, Flutter, and building practical software solutions.
 
+I enjoy exploring new technologies, developing applications, and continuously improving my programming skills.
 ## Tech Stack
 
 - **Framework:** Flutter
