@@ -31,16 +31,6 @@ Smooth navigation between portfolio sections.
 - **Version Control:** Git and GitHub
 - **Deployment:** Firebase Hosting
 
-## Featured Projects
-
-### rideTogether
-A group ride application designed to help riders coordinate trips and stay connected.
-
-### Hamaro Gunaso
-A complaint management application designed to streamline complaint submission and tracking.
-
-### Flashcard Quiz App
-A learning application for practicing and reviewing concepts through flashcards.
 
 ## Connect With Me
 
