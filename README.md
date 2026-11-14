@@ -31,6 +31,33 @@ Smooth navigation between portfolio sections.
 - **Version Control:** Git and GitHub
 - **Deployment:** Firebase Hosting
 
+## Getting Started
+
+### Prerequisites
+
+Flutter SDK
+
+Dart SDK
+
+Git
+
+### Installation
+
+#### Clone the repository:
+
+git clone https://github.com/birendrakalauni/birendra-kalauni.github.io.git
+
+#### Navigate to the project directory:
+
+cd birendra-kalauni.github.io
+
+#### Install dependencies:
+
+flutter pub get
+
+#### Run the application in Chrome:
+
+flutter run -d chrome
 
 ## Connect With Me
 
