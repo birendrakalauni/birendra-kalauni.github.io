@@ -66,4 +66,6 @@ flutter run -d chrome
 
 ---
 
+⭐ If you find this project interesting, feel free to explore the repository.
+
 Built with Flutter and Dart.
